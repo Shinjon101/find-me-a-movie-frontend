@@ -1,4 +1,4 @@
-import GameGrid from "./Components/GameGrid";
+import MovieGrid from "./Components/MovieGrid";
 import NavBar from "./Components/NavBar";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
         <GridItem area="aside">Aside</GridItem>
       </Show>
       <GridItem area="main">
-        <GameGrid />
+        <MovieGrid />
       </GridItem>
     </Grid>
   );

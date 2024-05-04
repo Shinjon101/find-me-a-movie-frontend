@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
+  poster_path: string;
+  backdrop_path: string;
 }
 interface FetchMovieResponse {
   page: number;
