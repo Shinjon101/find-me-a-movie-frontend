@@ -22,11 +22,13 @@ interface FetchMovieDetails {
 }
 
 const useMovies = () => {
+  const [isLoading, setLoading] = useState(false)
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true);
     apiClient
       .get<FetchMovieResponse>("/top_rated", { signal: controller.signal })
       .then((res) => {
@@ -47,17 +49,22 @@ const useMovies = () => {
           .catch((error) => {
             setError(error.message);
           });
+        setLoading(false)
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message);
-      });
+        setLoading(false)
+      })
+      .finally(()=>{
+      
+      })
 
     return () => controller.abort(); 
     
   }, []);
 
-  return { movies, error };
+  return { movies, error, isLoading };
 };
 
 export default useMovies;

@@ -9,7 +9,7 @@ const Genres = ({ movie }: Props) => {
   return (
     <Wrap spacing={0}>
       {movie.genres?.map((genre) => (
-        <Badge margin={1} fontSize={10}>
+        <Badge margin={1} fontSize={10} key={genre}>
           {genre}
         </Badge>
       ))}
