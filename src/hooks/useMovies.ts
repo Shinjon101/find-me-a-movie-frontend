@@ -6,8 +6,8 @@ export interface Movie {
   id: number;
   title: string;
   poster_path: string;
-  backdrop_path: string;
   genres?: string[]; 
+  vote_average: number;
 }
 interface FetchMovieResponse {
   page: number;
@@ -28,7 +28,7 @@ const useMovies = () => {
   useEffect(() => {
     const controller = new AbortController();
     apiClient
-      .get<FetchMovieResponse>("/popular", { signal: controller.signal })
+      .get<FetchMovieResponse>("/top_rated", { signal: controller.signal })
       .then((res) => {
         const resMovies = res.data.results;
 

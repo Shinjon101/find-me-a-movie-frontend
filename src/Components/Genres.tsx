@@ -1,4 +1,4 @@
-import { Badge, HStack } from "@chakra-ui/react";
+import { Badge, Wrap } from "@chakra-ui/react";
 import { Movie } from "../hooks/useMovies";
 
 interface Props {
@@ -7,11 +7,13 @@ interface Props {
 
 const Genres = ({ movie }: Props) => {
   return (
-    <div>
+    <Wrap spacing={0}>
       {movie.genres?.map((genre) => (
-        <Badge margin={2}>{genre}</Badge>
+        <Badge margin={1} fontSize={10}>
+          {genre}
+        </Badge>
       ))}
-    </div>
+    </Wrap>
   );
 };
 
