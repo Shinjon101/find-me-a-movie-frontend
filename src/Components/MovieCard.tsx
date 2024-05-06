@@ -17,7 +17,7 @@ interface Props {
 const imgExtractionUrl = "https://image.tmdb.org/t/p/original/";
 const MovieCard = ({ movie }: Props) => {
   return (
-    <Card borderRadius={10} overflow="hidden" width="220px">
+    <Card>
       <Image src={imgExtractionUrl + movie.poster_path} />
       <CardBody>
         <Heading fontSize="2xl" marginBottom={3}>
