@@ -4,7 +4,7 @@ import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import MovieCardContainer from "./MovieCardContainer";
 
-const GameGrid = () => {
+const MovieGrid = () => {
   const { movies, error, isLoading } = useMovies();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -18,12 +18,12 @@ const GameGrid = () => {
       >
         {isLoading &&
           skeletons.map((skeleton) => (
-            <MovieCardContainer>
+            <MovieCardContainer key={skeleton}>
               <MovieCardSkeleton key={skeleton} />
             </MovieCardContainer>
           ))}
         {movies.map((movie) => (
-          <MovieCardContainer>
+          <MovieCardContainer key={movie.title}>
             <MovieCard key={movie.id} movie={movie}></MovieCard>
           </MovieCardContainer>
         ))}
@@ -32,4 +32,4 @@ const GameGrid = () => {
   );
 };
 
-export default GameGrid;
+export default MovieGrid;

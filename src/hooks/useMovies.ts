@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
+import { addGenresToMovies } from "../services/addGenre";
 
 export interface Movie {
   id: number;
   title: string;
   poster_path: string;
-  genres?: string[]; 
+  genres: string[]; 
   vote_average: number;
 }
 interface FetchMovieResponse {
   page: number;
   results: Movie[];
 }
-interface Genre {
-  id: number;
-  name: string;
-}
-interface FetchMovieDetails {
-  genres: Genre[];
-}
 
 const useMovies = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
 
@@ -30,41 +24,30 @@ const useMovies = () => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchMovieResponse>("/top_rated", { signal: controller.signal })
+      .get<FetchMovieResponse>('/movie/top_rated', { signal: controller.signal })
       .then((res) => {
         const resMovies = res.data.results;
-
-        const promises = resMovies.map((movie) =>
-          apiClient.get<FetchMovieDetails>(`/${movie.id}`)
-        );
-        Promise.all(promises)
-          .then((responses) => {
-            responses.forEach((response, index) => {
-              resMovies[index].genres = response.data.genres.map(
-                (genre) => genre.name
-              );
-            });
-            setMovies(resMovies);
+        addGenresToMovies(resMovies)
+          .then((moviesWithGenres) => {
+            setMovies(moviesWithGenres);
+            setLoading(false);
           })
           .catch((error) => {
             setError(error.message);
+            setLoading(false);
           });
-        setLoading(false)
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message);
-        setLoading(false)
-      })
-      .finally(()=>{
-      
-      })
+        setLoading(false);
+      });
 
     return () => controller.abort(); 
-    
   }, []);
 
   return { movies, error, isLoading };
 };
+
 
 export default useMovies;
