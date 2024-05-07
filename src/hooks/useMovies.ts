@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
 import { addGenresToMovies } from "../services/addGenre";
+import { Genre } from "./useGeneres";
 
 export interface Movie {
   id: number;
@@ -15,7 +16,7 @@ interface FetchMovieResponse {
   results: Movie[];
 }
 
-const useMovies = () => {
+const useMovies = (selectedGenre: Genre|null) => {
   const [isLoading, setLoading] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
@@ -24,7 +25,10 @@ const useMovies = () => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchMovieResponse>('/discover/movie',{ signal: controller.signal })
+      .get<FetchMovieResponse>('/discover/movie',{ params:{
+        with_genres: selectedGenre?.id,
+        signal: controller.signal
+      }})
       .then((res) => {
         const resMovies = res.data.results;
         addGenresToMovies(resMovies)
@@ -44,7 +48,7 @@ const useMovies = () => {
       });
 
     return () => controller.abort(); 
-  }, []);
+  }, [selectedGenre]);
 
   return { movies, error, isLoading };
 };
