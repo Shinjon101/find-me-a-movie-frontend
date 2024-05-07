@@ -24,7 +24,7 @@ const useMovies = () => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchMovieResponse>('/movie/top_rated', { signal: controller.signal })
+      .get<FetchMovieResponse>('/discover/movie',{ signal: controller.signal })
       .then((res) => {
         const resMovies = res.data.results;
         addGenresToMovies(resMovies)
