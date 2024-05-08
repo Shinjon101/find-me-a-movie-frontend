@@ -8,6 +8,7 @@ import { SortSelector } from "./Components/SortSelector";
 
 export interface MovieQuery {
   genre: Genre | null;
+  sortOrder: string;
 }
 
 const App = () => {
@@ -36,7 +37,12 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main">
-        <SortSelector />
+        <SortSelector
+          sortOrder={movieQuery.sortOrder}
+          onSelectSortOrder={(sortOrder) =>
+            setMovieQuery({ ...movieQuery, sortOrder })
+          }
+        />
         <MovieGrid movieQuery={movieQuery} />
       </GridItem>
     </Grid>

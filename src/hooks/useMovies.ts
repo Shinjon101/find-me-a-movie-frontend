@@ -28,7 +28,8 @@ const useMovies = (movieQuery: MovieQuery ) => {
     apiClient
       .get<FetchMovieResponse>('/discover/movie',{ params:{
         with_genres: movieQuery.genre?.id,
-        signal: controller.signal
+        signal: controller.signal,
+        sort_by: movieQuery.sortOrder
       }})
       .then((res) => {
         const resMovies = res.data.results;
