@@ -3,6 +3,7 @@ import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
 import { addGenresToMovies } from "../services/addGenre";
 import { Genre } from "./useGeneres";
+import { MovieQuery } from "../App";
 
 export interface Movie {
   id: number;
@@ -16,7 +17,7 @@ interface FetchMovieResponse {
   results: Movie[];
 }
 
-const useMovies = (selectedGenre: Genre|null) => {
+const useMovies = (movieQuery: MovieQuery ) => {
   const [isLoading, setLoading] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
@@ -26,7 +27,7 @@ const useMovies = (selectedGenre: Genre|null) => {
     setLoading(true);
     apiClient
       .get<FetchMovieResponse>('/discover/movie',{ params:{
-        with_genres: selectedGenre?.id,
+        with_genres: movieQuery.genre?.id,
         signal: controller.signal
       }})
       .then((res) => {
@@ -48,7 +49,7 @@ const useMovies = (selectedGenre: Genre|null) => {
       });
 
     return () => controller.abort(); 
-  }, [selectedGenre]);
+  }, [movieQuery]);
 
   return { movies, error, isLoading };
 };

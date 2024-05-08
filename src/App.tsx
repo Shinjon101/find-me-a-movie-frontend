@@ -5,8 +5,14 @@ import NavBar from "./Components/NavBar";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import { Genre } from "./hooks/useGeneres";
 import { SortSelector } from "./Components/SortSelector";
+
+export interface MovieQuery {
+  genre: Genre | null;
+}
+
 const App = () => {
-  const [selcetedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [movieQuery, setMovieQuery] = useState<MovieQuery>({} as MovieQuery);
+
   return (
     <Grid
       templateAreas={{
@@ -24,14 +30,14 @@ const App = () => {
       <Show above="lg">
         <GridItem area="aside" paddingX={3}>
           <GenreList
-            selectedGenre={selcetedGenre}
-            onSelectGenre={(gen) => setSelectedGenre(gen)}
+            selectedGenre={movieQuery.genre}
+            onSelectGenre={(genre) => setMovieQuery({ ...movieQuery, genre })}
           />
         </GridItem>
       </Show>
       <GridItem area="main">
         <SortSelector />
-        <MovieGrid selectedGenre={selcetedGenre} />
+        <MovieGrid movieQuery={movieQuery} />
       </GridItem>
     </Grid>
   );
