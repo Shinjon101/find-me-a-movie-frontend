@@ -4,6 +4,7 @@ import MovieGrid from "./Components/MovieGrid";
 import NavBar from "./Components/NavBar";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import { Genre } from "./hooks/useGeneres";
+import { SortSelector } from "./Components/SortSelector";
 const App = () => {
   const [selcetedGenre, setSelectedGenre] = useState<Genre | null>(null);
   return (
@@ -29,6 +30,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main">
+        <SortSelector />
         <MovieGrid selectedGenre={selcetedGenre} />
       </GridItem>
     </Grid>
