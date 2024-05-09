@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
 import { addGenresToMovies } from "../services/addGenre";
-import { Genre } from "./useGeneres";
 import { MovieQuery } from "../App";
 
 export interface Movie {
@@ -17,7 +16,7 @@ interface FetchMovieResponse {
   results: Movie[];
 }
 
-const useMovies = (movieQuery: MovieQuery ) => {
+const useMovies = (movieQuery: MovieQuery, endpoint:string ) => {
   const [isLoading, setLoading] = useState(false);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
@@ -26,10 +25,11 @@ const useMovies = (movieQuery: MovieQuery ) => {
     const controller = new AbortController();
     setLoading(true);
     apiClient
-      .get<FetchMovieResponse>('/discover/movie',{ params:{
+      .get<FetchMovieResponse>(endpoint,{ params:{
         with_genres: movieQuery.genre?.id,
         signal: controller.signal,
-        sort_by: movieQuery.sortOrder
+        sort_by: movieQuery.sortOrder,
+        query: movieQuery.searchText
       }})
       .then((res) => {
         const resMovies = res.data.results;
@@ -54,6 +54,4 @@ const useMovies = (movieQuery: MovieQuery ) => {
 
   return { movies, error, isLoading };
 };
-
-
 export default useMovies;

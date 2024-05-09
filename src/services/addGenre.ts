@@ -1,10 +1,7 @@
 import apiClient from "../services/apiClient";
 import { Movie} from "../hooks/useMovies";
 
-interface Genre {
-  id: number;
-  name: string;
-}
+
 interface Genre {
   id: number;
   name: string;

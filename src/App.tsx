@@ -9,6 +9,7 @@ import { SortSelector } from "./Components/SortSelector";
 export interface MovieQuery {
   genre: Genre | null;
   sortOrder: string;
+  searchText: string;
 }
 
 const App = () => {
@@ -26,7 +27,11 @@ const App = () => {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar
+          onSearch={(searchText) => {
+            setMovieQuery({ ...movieQuery, searchText });
+          }}
+        />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={3}>

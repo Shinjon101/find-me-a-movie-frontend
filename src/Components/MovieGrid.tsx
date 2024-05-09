@@ -3,7 +3,7 @@ import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import MovieCardContainer from "./MovieCardContainer";
-import { Genre } from "../hooks/useGeneres";
+
 import { MovieQuery } from "../App";
 
 interface Props {
@@ -11,7 +11,11 @@ interface Props {
 }
 
 const MovieGrid = ({ movieQuery }: Props) => {
-  const { movies, error, isLoading } = useMovies(movieQuery);
+  let endpoint = "";
+  movieQuery.searchText
+    ? (endpoint = "search/movie")
+    : (endpoint = "discover/movie");
+  const { movies, error, isLoading } = useMovies(movieQuery, endpoint);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
