@@ -15,6 +15,7 @@ interface Props {
   movie: Movie;
 }
 const imgExtractionUrl = "https://image.tmdb.org/t/p/original/";
+
 const MovieCard = ({ movie }: Props) => {
   return (
     <Card>

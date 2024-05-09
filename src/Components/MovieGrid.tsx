@@ -11,7 +11,7 @@ interface Props {
 }
 
 const MovieGrid = ({ movieQuery }: Props) => {
-  let endpoint = "";
+  let endpoint = "discover/movie";
   movieQuery.searchText
     ? (endpoint = "search/movie")
     : (endpoint = "discover/movie");

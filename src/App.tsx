@@ -5,6 +5,7 @@ import NavBar from "./Components/NavBar";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import { Genre } from "./hooks/useGeneres";
 import { SortSelector } from "./Components/SortSelector";
+import MovieHeading from "./Components/MovieHeading";
 
 export interface MovieQuery {
   genre: Genre | null;
@@ -42,6 +43,7 @@ const App = () => {
         </GridItem>
       </Show>
       <GridItem area="main">
+        <MovieHeading movieQuery={movieQuery} />
         <SortSelector
           sortOrder={movieQuery.sortOrder}
           onSelectSortOrder={(sortOrder) =>

@@ -1,5 +1,12 @@
 import useGeneres, { Genre } from "../hooks/useGeneres";
-import { List, ListItem, Heading, Spinner, Button } from "@chakra-ui/react";
+import {
+  List,
+  ListItem,
+  Heading,
+  Spinner,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
@@ -9,8 +16,8 @@ interface Props {
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { generes, isLoading } = useGeneres();
   return (
-    <>
-      <Heading>Genres</Heading>
+    <Box marginTop="10px">
+      <Heading fontSize="2xl">Genres</Heading>
       {isLoading && <Spinner />}
       <List>
         {generes.map((genre) => (
@@ -27,7 +34,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
           </ListItem>
         ))}
       </List>
-    </>
+    </Box>
   );
 };
 
