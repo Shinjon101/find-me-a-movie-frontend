@@ -15,10 +15,10 @@ interface Props {
 
 export const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
   const sortOrders = [
-    { value: "", label: "Popularity" },
+    { value: "popularity", label: "Popularity" },
     { value: "vote_average.desc", label: "Rating" },
     { value: "primary_release_date.desc", label: "Release date" },
-    { value: "title.desc", label: "Title" },
+    { value: "title.asc", label: "Title" },
   ];
 
   const currentSortOrder = sortOrders.find(

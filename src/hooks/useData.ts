@@ -9,7 +9,7 @@ interface FetchResponse<T>{
   
 }
 
-const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataModify?: (data: T[])=> T[], deps?: any[]) => { 
+const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataModify?: (data: T[])=> T[], deps?: any[], searchSort?: (data: T[], order: string|undefined)=>T[], searchSortOrder?:string) => { 
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
@@ -21,9 +21,7 @@ const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataMo
       .get<FetchResponse<T>>(endpoint,{signal: controller.signal, ...requestConfig })
       .then((res) => {
 
-      console.log(res.data.results)
-       console.log(res.data.genres)
-
+  
         let resData = <T[]> []   
            if(res.data.genres) {
             resData = res.data.genres;
@@ -32,7 +30,8 @@ const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataMo
            if(res.data.results) {
                
             resData = res.data.results;
-            dataModify? resData= dataModify(resData): resData; 
+            dataModify? resData= dataModify(resData): resData;
+            searchSort? resData = searchSort(resData, searchSortOrder): resData;
             setData(resData);
            
            }
