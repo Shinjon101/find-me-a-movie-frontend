@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
-import { addGenresToMovies } from "../services/addGenre";
+
 import { MovieQuery } from "../App";
+import { addGenreName } from "../services/addGenre2";
 
 export interface Movie {
   id: number;
@@ -10,6 +11,7 @@ export interface Movie {
   poster_path: string;
   genres: string[]; 
   vote_average: number;
+  genre_ids: number[]
 }
 interface FetchMovieResponse {
   page: number;
@@ -32,16 +34,13 @@ const useMovies = (movieQuery: MovieQuery, endpoint:string ) => {
         query: movieQuery.searchText
       }})
       .then((res) => {
+      
         const resMovies = res.data.results;
-        addGenresToMovies(resMovies)
-          .then((moviesWithGenres) => {
-            setMovies(moviesWithGenres);
-            setLoading(false);
-          })
-          .catch((error) => {
-            setError(error.message);
-            setLoading(false);
-          });
+         const moddified = addGenreName(resMovies)
+        setMovies(moddified);
+        setLoading(false)
+       
+
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
