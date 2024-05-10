@@ -3,7 +3,7 @@ import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
 
 import { MovieQuery } from "../App";
-import { addGenreName } from "../services/addGenre2";
+import { addGenreName } from "../services/addGenre";
 
 export interface Movie {
   id: number;
@@ -37,8 +37,8 @@ const useMovies = (movieQuery: MovieQuery, endpoint:string ) => {
       
         const resMovies = res.data.results;
          const moddified = addGenreName(resMovies)
-        setMovies(moddified);
-        setLoading(false)
+         setMovies(moddified);
+         setLoading(false)
        
 
       })
