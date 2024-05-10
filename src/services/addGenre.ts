@@ -11,7 +11,7 @@ export const addGenreName = (movies:Movie[]) => {
     });
   });
 
-  console.log(movies);
+
   
   return movies;
    

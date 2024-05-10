@@ -11,11 +11,7 @@ interface Props {
 }
 
 const MovieGrid = ({ movieQuery }: Props) => {
-  let endpoint = "discover/movie";
-  movieQuery.searchText
-    ? (endpoint = "search/movie")
-    : (endpoint = "discover/movie");
-  const { movies, error, isLoading } = useMovies(movieQuery, endpoint);
+  const { data: movies, error, isLoading } = useMovies(movieQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (

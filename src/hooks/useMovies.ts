@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { CanceledError } from "axios";
-
 import { MovieQuery } from "../App";
 import { addGenreName } from "../services/addGenre";
+import useData from "./useData";
+import { resolveStyleConfig } from "@chakra-ui/react";
 
 export interface Movie {
   id: number;
@@ -18,39 +19,17 @@ interface FetchMovieResponse {
   results: Movie[];
 }
 
-const useMovies = (movieQuery: MovieQuery, endpoint:string ) => {
-  const [isLoading, setLoading] = useState(false);
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [error, setError] = useState("");
+const useMovies = (movieQuery: MovieQuery) => {
+  let endpoint = "discover/movie";
+  movieQuery.searchText
+    ? (endpoint = "search/movie")
+    : (endpoint = "discover/movie");
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    apiClient
-      .get<FetchMovieResponse>(endpoint,{ params:{
-        with_genres: movieQuery.genre?.id,
-        signal: controller.signal,
-        sort_by: movieQuery.sortOrder,
-        query: movieQuery.searchText
-      }})
-      .then((res) => {
-      
-        const resMovies = res.data.results;
-         const moddified = addGenreName(resMovies)
-         setMovies(moddified);
-         setLoading(false)
-       
+  const{data, error, isLoading}=useData<Movie>(endpoint, {params:{
+    with_genres: movieQuery.genre?.id,
+    sort_by: movieQuery.sortOrder,
+    query: movieQuery.searchText} },addGenreName, [movieQuery])
 
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return () => controller.abort(); 
-  }, [movieQuery]);
-
-  return { movies, error, isLoading };
+   return {data, error, isLoading}
 };
 export default useMovies;
