@@ -14,12 +14,13 @@ interface Props {
 }
 
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
-  const { data, isLoading } = useGeneres();
+  const { data, isLoading, error } = useGeneres();
 
+  if (isLoading) return <Spinner />;
+  if (error) return null;
   return (
     <Box marginTop="10px">
       <Heading fontSize="2xl">Genres</Heading>
-      {isLoading && <Spinner />}
       <List>
         {data.map((genre) => (
           <ListItem key={genre.id} margin="3px">
