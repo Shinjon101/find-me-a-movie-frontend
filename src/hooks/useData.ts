@@ -9,7 +9,15 @@ interface FetchResponse<T>{
   
 }
 
-const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataModify?: (data: T[])=> T[], deps?: any[], searchSort?: (data: T[], order: string|undefined)=>T[], searchSortOrder?:string) => { 
+const useData = <T>
+( endpoint:string , requestConfig?:AxiosRequestConfig,
+   dataModify?: (data: T[])=> T[], deps?: any[], 
+   searchSort?: (data: T[], order: string|undefined)=>T[], 
+   searchSortOrder?:string,
+   searchSortGenre?:(data: T[], genre: string|undefined)=>T[],
+   selectedGenre?:string
+  ) => 
+    { 
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
@@ -32,6 +40,7 @@ const useData = <T>( endpoint:string , requestConfig?:AxiosRequestConfig, dataMo
             resData = res.data.results;
             dataModify? resData= dataModify(resData): resData;
             searchSort? resData = searchSort(resData, searchSortOrder): resData;
+            searchSortGenre? resData = searchSortGenre(resData, selectedGenre):resData;
             setData(resData);
            
            }

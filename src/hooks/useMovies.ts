@@ -3,6 +3,7 @@ import { MovieQuery } from "../App";
 import { addGenreName } from "../services/addGenre";
 import useData from "./useData";
 import {sortMovies } from "../services/sortSearch"
+import { sortSearchByGenre } from "../services/sortSearchByGenre";
 
 export interface Movie {
   id: number;
@@ -21,9 +22,7 @@ const useMovies = (movieQuery: MovieQuery) => {
  
   if(movieQuery.searchText) {
     const{data, error, isLoading}=useData<Movie>("search/movie", {params:{
-      with_genres: movieQuery.genre?.id,
-      sort_by: movieQuery.sortOrder,
-      query: movieQuery.searchText} },addGenreName, [movieQuery],sortMovies,movieQuery.sortOrder)
+      query: movieQuery.searchText} },addGenreName, [movieQuery],sortMovies,movieQuery.sortOrder, sortSearchByGenre,movieQuery.genre?.name)
      return {data, error, isLoading}
   }
   else {

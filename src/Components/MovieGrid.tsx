@@ -35,7 +35,7 @@ const MovieGrid = ({ movieQuery }: Props) => {
             </MovieCardContainer>
           ))}
         {movies.map((movie) => (
-          <MovieCardContainer key={movie.title}>
+          <MovieCardContainer key={movie.id}>
             <MovieCard key={movie.id} movie={movie}></MovieCard>
           </MovieCardContainer>
         ))}
