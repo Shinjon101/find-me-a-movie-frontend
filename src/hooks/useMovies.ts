@@ -1,7 +1,6 @@
-
+import useData from "./useData";
 import { MovieQuery } from "../App";
 import { addGenreName } from "../services/addGenre";
-import useData from "./useData";
 import {sortMovies } from "../services/sortSearch"
 import { sortSearchByGenre } from "../services/sortSearchByGenre";
 
@@ -19,20 +18,25 @@ export interface Movie {
 
 const useMovies = (movieQuery: MovieQuery) => {
  
+  const isSearch = Boolean(movieQuery.searchText);
+  const endpoint = isSearch? "search/movie":"discover/movie";
+  const params: {[key:string]: any} = 
+  isSearch?
+   {query: movieQuery.searchText}:
+   {
+    with_genres: movieQuery.genre?.id,
+    sort_by: movieQuery.sortOrder
+   }
  
-  if(movieQuery.searchText) {
-    const{data, error, isLoading}=useData<Movie>("search/movie", {params:{
-      query: movieQuery.searchText} },addGenreName, [movieQuery],sortMovies,movieQuery.sortOrder, sortSearchByGenre,movieQuery.genre?.name)
-     return {data, error, isLoading}
-  }
-  else {
-
-    const{data, error, isLoading}=useData<Movie>("discover/movie", {params:{
-      with_genres: movieQuery.genre?.id,
-      sort_by: movieQuery.sortOrder,
-      query: movieQuery.searchText} },addGenreName, [movieQuery])
-      return {data, error, isLoading}
-  }
-
+const {data, error, isLoading} = useData(endpoint, {params}, addGenreName, [movieQuery],
+  isSearch ? sortMovies : undefined,
+  isSearch ? movieQuery.sortOrder : undefined,
+  isSearch ? sortSearchByGenre : undefined,
+  isSearch ? movieQuery.genre?.name : undefined
+);
+return {data, error,isLoading};
+        
+ 
+   
 };
 export default useMovies;

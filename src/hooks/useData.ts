@@ -5,7 +5,7 @@ import { AxiosRequestConfig, CanceledError } from "axios";
 interface FetchResponse<T>{
   page: number;
   results: T[];
-  genres: T[];  //shitty api design
+  genres: T[]; 
   
 }
 
@@ -36,13 +36,11 @@ const useData = <T>
             setData(resData)
            }
            if(res.data.results) {
-               
             resData = res.data.results;
             dataModify? resData= dataModify(resData): resData;
             searchSort? resData = searchSort(resData, searchSortOrder): resData;
             searchSortGenre? resData = searchSortGenre(resData, selectedGenre):resData;
             setData(resData);
-           
            }
            setLoading(false)
       })
