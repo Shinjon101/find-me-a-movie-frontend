@@ -22,7 +22,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
     <Box marginTop="10px">
       <Heading fontSize="2xl">Genres</Heading>
       <List>
-        {data.map((genre) => (
+        {data?.genres.map((genre) => (
           <ListItem key={genre.id} margin="3px">
             <Button
               fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
