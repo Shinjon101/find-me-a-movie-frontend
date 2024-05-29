@@ -1,4 +1,5 @@
-import useGeneres, { Genre } from "../hooks/useGeneres";
+import useGeneres from "../hooks/useGeneres";
+import { Genre } from "../services/apiClient";
 import {
   List,
   ListItem,
