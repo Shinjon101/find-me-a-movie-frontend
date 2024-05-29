@@ -1,8 +1,10 @@
-import useData from "./useData";
+import { FetchResponse } from "../services/apiClient";
 import { MovieQuery } from "../App";
 import { addGenreName } from "../services/addGenre";
 import {sortMovies } from "../services/sortSearch"
 import { sortSearchByGenre } from "../services/sortSearchByGenre";
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../services/apiClient";
 
 export interface Movie {
   id: number;
@@ -28,15 +30,28 @@ const useMovies = (movieQuery: MovieQuery) => {
     sort_by: movieQuery.sortOrder
    }
  
-const {data, error, isLoading} = useData(endpoint, {params}, addGenreName, [movieQuery],
-  isSearch ? sortMovies : undefined,
-  isSearch ? movieQuery.sortOrder : undefined,
-  isSearch ? sortSearchByGenre : undefined,
-  isSearch ? movieQuery.genre?.name : undefined
-);
-return {data, error,isLoading};
+const {data, error, isLoading} = useQuery(
+ {
+  queryKey:['movies', movieQuery],
+  queryFn: ()=>apiClient.get<FetchResponse<Movie>>(endpoint,{params}).then((res)=>res.data),
+  select: data=>{
+     
+    let movies = data.results
+    movies = addGenreName(movies)
+     if(isSearch)
+      {
+        movies = sortMovies(movies, movieQuery.sortOrder);
+        if(movieQuery.genre?.name) {
+          movies = sortSearchByGenre(movies, movieQuery.genre.name);
+        }
+      }
+    
+   return movies;
+  }
+ }
+)
         
- 
+return { data, error, isLoading };
    
 };
 export default useMovies;

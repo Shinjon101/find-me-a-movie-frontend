@@ -1,4 +1,10 @@
 import axios from "axios";
+
+export interface FetchResponse<T>{
+  page: number;
+  results: T[];
+}
+
 export default axios.create({
   baseURL: "https://api.themoviedb.org/3",
 

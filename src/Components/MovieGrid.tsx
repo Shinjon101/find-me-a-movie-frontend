@@ -18,7 +18,7 @@ const MovieGrid = ({ movieQuery }: Props) => {
     return (
       <Alert status="error">
         <AlertIcon />
-        {error}
+        {error.message}
       </Alert>
     );
 
@@ -34,7 +34,7 @@ const MovieGrid = ({ movieQuery }: Props) => {
             <MovieCardSkeleton key={skeleton} />
           </MovieCardContainer>
         ))}
-      {movies.map((movie) => (
+      {movies?.map((movie) => (
         <MovieCardContainer key={movie.id}>
           <MovieCard key={movie.id} movie={movie}></MovieCard>
         </MovieCardContainer>
