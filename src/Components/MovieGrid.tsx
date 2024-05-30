@@ -42,7 +42,7 @@ const MovieGrid = ({ movieQuery }: Props) => {
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   return (
-    <Box padding={1}>
+    <Box>
       <InfiniteScroll
         dataLength={fetchedMoviesCount}
         hasMore={hasNextPage}
@@ -71,15 +71,6 @@ const MovieGrid = ({ movieQuery }: Props) => {
           ))}
         </SimpleGrid>
       </InfiniteScroll>
-      {hasNextPage && (
-        <Button
-          onClick={() => fetchNextPage()}
-          disabled={isFetchingNextPage}
-          marginY={10}
-        >
-          {isFetchingNextPage ? "Loading..." : "Load More"}
-        </Button>
-      )}
     </Box>
   );
 };
