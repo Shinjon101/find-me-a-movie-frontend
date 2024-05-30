@@ -1,4 +1,11 @@
-import { Alert, AlertIcon, Box, Button, SimpleGrid } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  SimpleGrid,
+  Spinner,
+} from "@chakra-ui/react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
@@ -6,6 +13,7 @@ import MovieCardContainer from "./MovieCardContainer";
 
 import { MovieQuery } from "../App";
 import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface Props {
   movieQuery: MovieQuery;
@@ -30,29 +38,39 @@ const MovieGrid = ({ movieQuery }: Props) => {
       </Alert>
     );
 
+  const fetchedMoviesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
+
   return (
     <Box padding={1}>
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
-        spacing={8}
-        padding={2}
+      <InfiniteScroll
+        dataLength={fetchedMoviesCount}
+        hasMore={hasNextPage}
+        next={() => fetchNextPage()}
+        loader={<Spinner />}
       >
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <MovieCardContainer key={skeleton}>
-              <MovieCardSkeleton key={skeleton} />
-            </MovieCardContainer>
-          ))}
-        {data?.pages.map((page, index) => (
-          <React.Fragment key={index}>
-            {page.results.map((movie) => (
-              <MovieCardContainer key={movie.id}>
-                <MovieCard key={movie.id} movie={movie}></MovieCard>
+        <SimpleGrid
+          columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+          spacing={8}
+          padding={2}
+        >
+          {isLoading &&
+            skeletons.map((skeleton) => (
+              <MovieCardContainer key={skeleton}>
+                <MovieCardSkeleton key={skeleton} />
               </MovieCardContainer>
             ))}
-          </React.Fragment>
-        ))}
-      </SimpleGrid>
+          {data?.pages.map((page, index) => (
+            <React.Fragment key={index}>
+              {page.results.map((movie) => (
+                <MovieCardContainer key={movie.id}>
+                  <MovieCard key={movie.id} movie={movie}></MovieCard>
+                </MovieCardContainer>
+              ))}
+            </React.Fragment>
+          ))}
+        </SimpleGrid>
+      </InfiniteScroll>
       {hasNextPage && (
         <Button
           onClick={() => fetchNextPage()}
