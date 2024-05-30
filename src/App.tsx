@@ -3,7 +3,7 @@ import GenreList from "./Components/GenreList";
 import MovieGrid from "./Components/MovieGrid";
 import NavBar from "./Components/NavBar";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
-import { Genre } from "./hooks/useGeneres";
+import { Genre } from "./services/apiClient";
 import { SortSelector } from "./Components/SortSelector";
 import MovieHeading from "./Components/MovieHeading";
 
