@@ -32,7 +32,7 @@ class APIClient {
 
   getMovies = (config: AxiosRequestConfig)=>{
 
-    return axiosInstance.get<MovieFetchResponse<Movie>>(this.endpoint, config)
+    return axiosInstance.get<MovieFetchResponse<Movie>>(this.endpoint, { params:config} )
     .then(res => res.data);
   }
 

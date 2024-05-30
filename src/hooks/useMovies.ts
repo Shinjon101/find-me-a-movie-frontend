@@ -3,7 +3,7 @@ import { MovieQuery } from "../App";
 import { addGenreName } from "../services/addGenre";
 import {sortMovies } from "../services/sortSearch"
 import { sortSearchByGenre } from "../services/sortSearchByGenre";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import APIClient from "../services/apiClient";
 
 export interface Movie {
@@ -17,45 +17,51 @@ export interface Movie {
   release_date: string
 }
 
-
-
-
 const useMovies = (movieQuery: MovieQuery) => {
  
   const isSearch = Boolean(movieQuery.searchText);
   const endpoint = isSearch? "search/movie":"discover/movie";
-  const params: {[key:string]: any} = 
-  isSearch?
-   {query: movieQuery.searchText}:
-   {
-    with_genres: movieQuery.genre?.id,
-    sort_by: movieQuery.sortOrder
-   }
-
 
 const apiClient = new APIClient(endpoint);
-const {data, error, isLoading} = useQuery(
- {
-  queryKey:['movies', movieQuery],
-  queryFn: ()=>apiClient.getMovies(params),
-  select: data=>{
-     
-    let movies = data.results
-    movies = addGenreName(movies)
-     if(isSearch)
-      {
+return useInfiniteQuery<MovieFetchResponse<Movie>, Error>({
+  queryKey: ['movies', movieQuery],
+  queryFn: ({ pageParam}) => {
+    const params: { [key: string]: any } = isSearch
+      ? { query: movieQuery.searchText, page: pageParam }
+      : {
+          with_genres: movieQuery.genre?.id,
+          sort_by: movieQuery.sortOrder,
+          page: pageParam,
+        };
+
+    return apiClient.getMovies(params);
+  },
+  getNextPageParam:(lastPage, allPages)=>{
+    return lastPage.results.length ? allPages.length + 1 : undefined;
+  } ,
+  initialPageParam: 1,
+  select: (data) => {
+    const processedPages = data.pages.map((page)=>{
+      let movies = page.results;
+      movies = addGenreName(movies);
+      if(isSearch){
         movies = sortMovies(movies, movieQuery.sortOrder);
-        if(movieQuery.genre?.name) {
+        if (movieQuery.genre?.name) {
           movies = sortSearchByGenre(movies, movieQuery.genre.name);
         }
       }
-    
-   return movies;
-  }
- }
-)
-        
-return { data, error, isLoading };
-   
+      return {
+        ...page,
+        results: movies,
+      }
+    })
+
+    return {
+      ...data,
+      pages: processedPages,
+    }
+},
+});
 };
+
 export default useMovies;
