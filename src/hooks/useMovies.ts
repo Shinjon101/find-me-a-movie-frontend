@@ -27,12 +27,12 @@ const useMovies = (movieQuery: MovieQuery) => {
   const prevEndpointRef = useRef<string | null>(null);
 
   if (isSearch && prevEndpointRef.current !== "search/movie") {
-    // Reset genre and sortOrder to default values
+
     movieQuery.genre = null;
     movieQuery.sortOrder = "popularity"
   }
 
-  // Update the previous endpoint ref
+ 
   prevEndpointRef.current = endpoint;
 
 const apiClient = new APIClient(endpoint);
@@ -57,6 +57,7 @@ return useInfiniteQuery<MovieFetchResponse<Movie>, Error>({
   select: (data) => {
     const processedPages = data.pages.map((page)=>{
       let movies = page.results;
+     
       movies = addGenreName(movies);
       if(isSearch){
         movies = sortMovies(movies, movieQuery.sortOrder);
