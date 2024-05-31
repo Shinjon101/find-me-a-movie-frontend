@@ -1,12 +1,12 @@
-import { Alert, AlertIcon, Box, SimpleGrid, Spinner } from "@chakra-ui/react";
-import useMovies from "../hooks/useMovies";
-import MovieCard from "./MovieCard";
-import MovieCardSkeleton from "./MovieCardSkeleton";
-import MovieCardContainer from "./MovieCardContainer";
-
-import { MovieQuery } from "../App";
+import { Alert, AlertIcon, Box, Spinner } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { MovieQuery } from "../App";
+import useMovies from "../hooks/useMovies";
+import MovieCard from "./MovieCard";
+import MovieCardContainer from "./MovieCardContainer";
+import MovieSimpleGrid from "./MovieSimpleGrid";
+import SkeletonGrid from "./SkeletonGrid";
 
 interface Props {
   movieQuery: MovieQuery;
@@ -15,7 +15,6 @@ interface Props {
 const MovieGrid = ({ movieQuery }: Props) => {
   const { data, error, isLoading, fetchNextPage, hasNextPage } =
     useMovies(movieQuery);
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   if (error)
     return (
@@ -34,19 +33,14 @@ const MovieGrid = ({ movieQuery }: Props) => {
         dataLength={fetchedMoviesCount}
         hasMore={hasNextPage}
         next={() => fetchNextPage()}
-        loader={<Spinner />}
+        loader={
+          <MovieSimpleGrid>
+            <SkeletonGrid />
+          </MovieSimpleGrid>
+        }
       >
-        <SimpleGrid
-          columns={{ base: 2, md: 3, lg: 4, xl: 5 }}
-          spacing={8}
-          padding={2}
-        >
-          {isLoading &&
-            skeletons.map((skeleton) => (
-              <MovieCardContainer key={skeleton}>
-                <MovieCardSkeleton key={skeleton} />
-              </MovieCardContainer>
-            ))}
+        <MovieSimpleGrid>
+          {isLoading && <SkeletonGrid />}
           {data?.pages.map((page, index) => (
             <React.Fragment key={index}>
               {page.results.map((movie) => (
@@ -56,7 +50,7 @@ const MovieGrid = ({ movieQuery }: Props) => {
               ))}
             </React.Fragment>
           ))}
-        </SimpleGrid>
+        </MovieSimpleGrid>
       </InfiniteScroll>
     </Box>
   );
