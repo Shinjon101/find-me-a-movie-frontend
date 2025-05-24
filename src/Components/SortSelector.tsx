@@ -31,7 +31,7 @@ export const SortSelector = () => {
         <MenuList>
           {sortOrders.map((order) => (
             <MenuItem
-              onClick={() => setSortOrder}
+              onClick={() => setSortOrder(order.value)}
               key={order.value}
               value={order.value}
             >
