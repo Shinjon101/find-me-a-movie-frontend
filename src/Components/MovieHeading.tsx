@@ -1,11 +1,8 @@
 import { Heading } from "@chakra-ui/react";
-import { MovieQuery } from "../App";
+import useMovieQueryStore from "../services/movieQueryStore";
 
-interface Props {
-  movieQuery: MovieQuery;
-}
-
-const MovieHeading = ({ movieQuery }: Props) => {
+const MovieHeading = () => {
+  const movieQuery = useMovieQueryStore((s) => s.movieQuery);
   let heading = "";
   movieQuery.searchText
     ? (heading = "Search Results")
