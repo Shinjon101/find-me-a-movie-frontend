@@ -1,4 +1,4 @@
-import { Genre, MovieFetchResponse } from "../services/apiClient";
+import { MovieFetchResponse } from "../services/apiClient";
 import { MovieQuery } from "../services/movieQueryStore";
 import { addGenreName } from "../services/addGenre";
 import { sortMovies } from "../services/sortSearch";
@@ -11,14 +11,12 @@ export interface Movie {
   id: number;
   title: string;
   poster_path: string;
-  genres: Genre[];
+  genres: string[];
   vote_average: number;
   genre_ids: number[];
   popularity: number;
   release_date: string;
   overview: string;
-  backdrop_path: string;
-  runtime: number;
 }
 
 const useMovies = (movieQuery: MovieQuery) => {

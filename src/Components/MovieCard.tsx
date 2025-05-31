@@ -1,13 +1,21 @@
-import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
-import { Movie } from "../Entities/Movie";
+import {
+  Badge,
+  Card,
+  CardBody,
+  HStack,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { Movie } from "../hooks/useMovies";
 import Genres from "./Genres";
 import RatingScore from "./RatingScore";
 import { useNavigate } from "react-router-dom";
-import { imgExtractionUrl } from "../services/ImageExtractionUrl";
 
 interface Props {
   movie: Movie;
 }
+const imgExtractionUrl = "https://image.tmdb.org/t/p/original/";
 
 const MovieCard = ({ movie }: Props) => {
   const navigate = useNavigate();
