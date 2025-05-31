@@ -6,7 +6,9 @@ export function sortSearchByGenre(
 ): Movie[] {
   if (genre) {
     const filteredMovies = movies.filter((movie) =>
-      movie.genres.map((g) => g.toLowerCase()).includes(genre.toLowerCase())
+      movie.genres
+        .map((g) => g.name.toLowerCase())
+        .includes(genre.toLowerCase())
     );
     return filteredMovies;
   }

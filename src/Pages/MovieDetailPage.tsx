@@ -18,6 +18,7 @@ const MovieDetailPage = () => {
   const { data: movie, isLoading, error } = useMovie(id!);
   if (isLoading) return <Spinner />;
   if (error || !movie) throw error;
+
   return (
     <Box>
       <SimpleGrid columns={{ base: 1, md: 2 }}>
@@ -28,6 +29,11 @@ const MovieDetailPage = () => {
           </Text>
 
           <SimpleGrid columns={2} maxW="150vh">
+            <DefinationItem term="Genre" key={"genre"}>
+              {movie.genres.map((genre, index) => (
+                <Text key={index}>{genre.name}</Text>
+              ))}
+            </DefinationItem>
             <DefinationItem term="Rating" key={"rating"}>
               <RatingScore score={movie.vote_average} />
             </DefinationItem>
