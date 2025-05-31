@@ -11,7 +11,7 @@ const MovieCardConatiner = ({ children }: Props) => {
       overflow="hidden"
       _hover={{
         transform: "scale(1.03)",
-        transition: "transform 0.15s ease-in-out",
+        transition: "transform 0.15s ease-in",
       }}
     >
       {children}

@@ -2,12 +2,24 @@ import { HStack, Image } from "@chakra-ui/react";
 import logo from "../assets/tv_8936507.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
+import { useNavigate } from "react-router-dom";
+import { transform } from "framer-motion";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <HStack padding="5px 10px">
-        <Image src={logo} boxSize="60px" marginRight="7px"></Image>
+        <Image
+          _hover={{
+            transform: "scale(1.05)",
+            transition: "transform 0.15s ease-in",
+          }}
+          src={logo}
+          boxSize="60px"
+          marginRight="7px"
+          onClick={() => navigate("/")}
+        ></Image>
         <SearchInput />
         <ColorModeSwitch />
       </HStack>
