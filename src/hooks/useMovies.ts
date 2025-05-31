@@ -16,6 +16,7 @@ export interface Movie {
   genre_ids: number[];
   popularity: number;
   release_date: string;
+  overview: string;
 }
 
 const useMovies = (movieQuery: MovieQuery) => {

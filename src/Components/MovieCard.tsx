@@ -10,6 +10,7 @@ import {
 import { Movie } from "../hooks/useMovies";
 import Genres from "./Genres";
 import RatingScore from "./RatingScore";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   movie: Movie;
@@ -17,8 +18,9 @@ interface Props {
 const imgExtractionUrl = "https://image.tmdb.org/t/p/original/";
 
 const MovieCard = ({ movie }: Props) => {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card onClick={() => navigate(`movies/${movie.id}`)}>
       <Image src={imgExtractionUrl + movie.poster_path} />
       <CardBody>
         <Heading fontSize="2xl" marginBottom={3}>
