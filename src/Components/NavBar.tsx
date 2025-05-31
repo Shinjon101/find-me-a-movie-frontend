@@ -3,7 +3,6 @@ import logo from "../assets/tv_8936507.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 import { useNavigate } from "react-router-dom";
-import { transform } from "framer-motion";
 
 const NavBar = () => {
   const navigate = useNavigate();
