@@ -25,7 +25,13 @@ export const SortSelector = () => {
   return (
     <Box padding={2}>
       <Menu>
-        <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+        <MenuButton
+          as={Button}
+          whiteSpace="normal"
+          wordBreak="break-word"
+          fontSize={{ base: "sm", md: "md" }}
+          rightIcon={<BsChevronDown />}
+        >
           Order by: {currentSortOrder?.label || "Popularity"}
         </MenuButton>
         <MenuList>

@@ -1,8 +1,9 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show, SimpleGrid } from "@chakra-ui/react";
 import GenreList from "../Components/GenreList";
 import MovieGrid from "../Components/MovieGrid";
 import MovieHeading from "../Components/MovieHeading";
 import { SortSelector } from "../Components/SortSelector";
+import GenreSelector from "../Components/GenreSelector";
 
 const HomePage = () => {
   return (
@@ -23,7 +24,12 @@ const HomePage = () => {
       </Show>
       <GridItem area="main">
         <MovieHeading />
-        <SortSelector />
+        <SimpleGrid columns={2}>
+          <SortSelector />
+          <Show below="lg">
+            <GenreSelector />
+          </Show>
+        </SimpleGrid>
         <MovieGrid />
       </GridItem>
     </Grid>
