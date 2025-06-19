@@ -13,7 +13,7 @@ const Genres = ({ movie }: Props) => {
       {movie.genres.map((genre) => (
         <Badge
           margin={1}
-          fontSize={10}
+          fontSize={9}
           key={genre.id}
           bg={badgeBg}
           color={badgeColor}

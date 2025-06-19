@@ -14,6 +14,7 @@ import RatingScore from "./RatingScore";
 
 import { imgExtractionUrl } from "../services/ImageExtractionUrl";
 import { Movie } from "../hooks/useMovies";
+import ReleaseDate from "./ReleaseDate";
 
 interface Props {
   movie: Movie;
@@ -30,7 +31,9 @@ const MovieCard = ({ movie }: Props) => {
     >
       <Box
         position="relative"
-        height="400px"
+        width={{ base: "12rem", sm: "auto" }}
+        maxW="full"
+        aspectRatio={2 / 3}
         cursor="pointer"
         borderRadius="lg"
         overflow="hidden"
@@ -43,21 +46,37 @@ const MovieCard = ({ movie }: Props) => {
           width="100%"
           height="100%"
           objectFit="cover"
-          transition="transform 0.3s"
+          transition="transform 0.4s ease-in-out"
           _groupHover={{ transform: "scale(1.05)" }}
         />
+        <Box
+          position="absolute"
+          top="2"
+          right="2"
+          zIndex="1"
+          transition="transform 0.3s ease-in-out"
+          _groupHover={{ transform: "scale(1.05)" }}
+        >
+          <RatingScore score={movie.vote_average} />
+        </Box>
 
         <Box
           position="absolute"
           bottom="0"
           left="0"
           width="100%"
-          bgGradient="linear(to-b, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75))"
+          bgGradient="linear(to-b, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.75))"
           color="white"
-          padding={4}
+          padding={2}
+          transform={
+            showOverlayByDefault ? "translateY(0)" : "translateY(100%)"
+          }
           opacity={showOverlayByDefault ? 1 : 0}
-          _groupHover={{ opacity: 1 }}
-          transition="opacity 0.3s"
+          transition="transform 0.3s ease-in-out, opacity 0.3s ease-in-out"
+          _groupHover={{
+            transform: "translateY(0)",
+            opacity: 1,
+          }}
           zIndex="1"
         >
           <Heading fontSize="lg" noOfLines={2}>
@@ -66,8 +85,7 @@ const MovieCard = ({ movie }: Props) => {
 
           <HStack mt={2}>
             <Genres movie={movie} />
-
-            <RatingScore score={movie.vote_average} />
+            <ReleaseDate rDate={movie.release_date} />
           </HStack>
         </Box>
       </Box>
