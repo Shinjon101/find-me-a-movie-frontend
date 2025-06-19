@@ -17,6 +17,7 @@ const NavBar = () => {
           src={logo}
           boxSize="60px"
           marginRight="7px"
+          cursor={"pointer"}
           onClick={() => navigate("/")}
         ></Image>
         <SearchInput />
