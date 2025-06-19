@@ -31,7 +31,7 @@ const MovieCard = ({ movie }: Props) => {
     >
       <Box
         position="relative"
-        width={{ base: "12rem", sm: "auto" }}
+        width="auto"
         maxW="full"
         aspectRatio={2 / 3}
         cursor="pointer"

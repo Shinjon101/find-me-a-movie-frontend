@@ -8,7 +8,7 @@ const MovieCardSkeleton = () => {
         display="flex"
         flexDirection="column"
         justifyContent="flex-end"
-        width={{ base: "12rem", sm: "auto" }}
+        width="auto"
         maxW="full"
         aspectRatio={2 / 3}
       >

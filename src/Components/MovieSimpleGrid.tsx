@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 interface Props {
@@ -6,6 +6,8 @@ interface Props {
 }
 
 const MovieSimpleGrid = ({ children }: Props) => {
+  const isMobile = useBreakpointValue({ base: true, sm: false });
+
   return (
     <SimpleGrid
       columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
