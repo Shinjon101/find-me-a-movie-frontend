@@ -12,12 +12,13 @@ import DefinationItem from "../Components/DefinationItem";
 import RatingScore from "../Components/RatingScore";
 import { imgExtractionUrl } from "../services/ImageExtractionUrl";
 import DefinationItems from "../Components/DefinationItem";
+import MovieDetailSkeleton from "../Components/MovieDetailSkeleton";
 
 const MovieDetailPage = () => {
   const placeHolderImageUrl = "https://placehold.co/342x192?text=No Poster";
   const { id } = useParams();
   const { data: movie, isLoading, error } = useMovie(id!);
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <MovieDetailSkeleton />;
   if (error || !movie) throw error;
 
   return (
