@@ -52,6 +52,7 @@ const MovieCard = ({ movie }: Props) => {
           height="100%"
           objectFit="cover"
           transition="transform 0.4s ease-in-out"
+          transform="scale(1)"
           _groupHover={{ transform: "scale(1.05)" }}
         />
         <Box

@@ -31,9 +31,11 @@ const MovieGrid = () => {
         hasMore={hasNextPage}
         next={() => fetchNextPage()}
         loader={
-          <MovieSimpleGrid>
-            <SkeletonGrid />
-          </MovieSimpleGrid>
+          hasNextPage ? (
+            <MovieSimpleGrid>
+              <SkeletonGrid />
+            </MovieSimpleGrid>
+          ) : null
         }
       >
         <MovieSimpleGrid>
