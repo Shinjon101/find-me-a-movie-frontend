@@ -9,10 +9,8 @@ const MovieCardConatiner = ({ children }: Props) => {
     <Box
       borderRadius={10}
       overflow="hidden"
-      _hover={{
-        transform: "scale(1.03)",
-        transition: "transform 0.15s ease-in",
-      }}
+      tabIndex={0}
+      _focusVisible={{ boxShadow: "outline" }}
     >
       {children}
     </Box>
