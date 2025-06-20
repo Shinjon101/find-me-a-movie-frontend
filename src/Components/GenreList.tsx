@@ -8,14 +8,37 @@ import {
 } from "@chakra-ui/react";
 import useGeneres from "../hooks/useGeneres";
 import useMovieQueryStore from "../services/movieQueryStore";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const GenreList = () => {
   const { data, isLoading, error } = useGeneres();
   const setGenre = useMovieQueryStore((s) => s.setGenre);
   const selectedGenreId = useMovieQueryStore((s) => s.movieQuery.genre?.id);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const genreId = searchParams.get("genre");
+    if (genreId && data?.genres) {
+      const genre = data.genres.find((g) => g.id === parseInt(genreId));
+      if (genre) setGenre(genre);
+    }
+  }, [data]);
+
+  const handleGenreClick = (genre: (typeof data.genres)[0]) => {
+    //type of a single genre object from the genres array
+    if (genre.id === 1) {
+      searchParams.delete("genre");
+    } else {
+      searchParams.set("genre", genre.id.toString());
+    }
+    setSearchParams(searchParams);
+    setGenre(genre);
+  };
 
   if (isLoading) return <Spinner />;
   if (error) return null;
+
   return (
     <Box marginTop="10px">
       <Heading fontSize="2xl">Genres</Heading>
@@ -24,9 +47,7 @@ const GenreList = () => {
           <ListItem key={genre.id} margin="3px">
             <Button
               fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
-              onClick={() => {
-                setGenre(genre);
-              }}
+              onClick={() => handleGenreClick(genre)}
               variant="link"
             >
               {genre.name}

@@ -25,7 +25,9 @@ const useMovieQueryStore = create<MovieQueryStore>((set) => ({
       movieQuery: { ...store.movieQuery, genre: genre.id === 1 ? null : genre },
     })),
   setSortOrder: (sortOrder) =>
-    set((store) => ({ movieQuery: { ...store.movieQuery, sortOrder } })),
+    set((store) => ({
+      movieQuery: { ...store.movieQuery, sortOrder },
+    })),
 }));
 
 export default useMovieQueryStore;

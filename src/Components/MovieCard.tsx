@@ -53,7 +53,6 @@ const MovieCard = ({ movie }: Props) => {
           position="absolute"
           top="2"
           right="2"
-          zIndex="1"
           transition="transform 0.3s ease-in-out"
           _groupHover={{ transform: "scale(1.05)" }}
         >

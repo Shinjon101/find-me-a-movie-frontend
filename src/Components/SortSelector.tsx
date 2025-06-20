@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import useMovieQueryStore from "../services/movieQueryStore";
+import { useEffect } from "react"; // ✅ added
+import { useSearchParams } from "react-router-dom"; // ✅ added
 
 export const SortSelector = () => {
   const sortOrders = [
@@ -16,12 +18,31 @@ export const SortSelector = () => {
     { value: "primary_release_date.desc", label: "Release date" },
     { value: "title.asc", label: "Title" },
   ];
+
   const sortOrder = useMovieQueryStore((s) => s.movieQuery.sortOrder);
   const setSortOrder = useMovieQueryStore((s) => s.setSortOrder);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  //Read from URL and set store on first render
+  useEffect(() => {
+    const sort = searchParams.get("sort");
+    if (sort) setSortOrder(sort);
+  }, []);
 
   const currentSortOrder = sortOrders.find(
     (order) => order.value === sortOrder
   );
+
+  const handleSelect = (value: string) => {
+    if (value === "popularity") {
+      searchParams.delete("sort");
+    } else {
+      searchParams.set("sort", value);
+    }
+    setSortOrder(value);
+    setSearchParams(searchParams);
+  };
+
   return (
     <Box padding={2}>
       <Menu>
@@ -37,9 +58,10 @@ export const SortSelector = () => {
         <MenuList>
           {sortOrders.map((order) => (
             <MenuItem
-              onClick={() => setSortOrder(order.value)}
+              onClick={() => handleSelect(order.value)}
               key={order.value}
               value={order.value}
+              fontWeight={order.value === sortOrder ? "bold" : "normal"} // emphasize
             >
               {order.label}
             </MenuItem>
