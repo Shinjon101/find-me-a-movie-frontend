@@ -21,6 +21,7 @@ interface Props {
 }
 
 const MovieCard = ({ movie }: Props) => {
+  const placeHolderImageUrl = "https://placehold.co/342x513?text=no poster";
   const showOverlayByDefault = useBreakpointValue({ base: true, md: false });
 
   return (
@@ -41,7 +42,11 @@ const MovieCard = ({ movie }: Props) => {
         _hover={{ boxShadow: "lg" }}
       >
         <Image
-          src={imgExtractionUrl + movie.poster_path}
+          src={
+            movie.poster_path
+              ? imgExtractionUrl + movie.poster_path
+              : placeHolderImageUrl
+          }
           alt={movie.title}
           width="100%"
           height="100%"

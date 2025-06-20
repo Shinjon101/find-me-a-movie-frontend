@@ -14,6 +14,7 @@ import { imgExtractionUrl } from "../services/ImageExtractionUrl";
 import DefinationItems from "../Components/DefinationItem";
 
 const MovieDetailPage = () => {
+  const placeHolderImageUrl = "https://placehold.co/342x192?text=No Poster";
   const { id } = useParams();
   const { data: movie, isLoading, error } = useMovie(id!);
   if (isLoading) return <Spinner />;
@@ -45,13 +46,19 @@ const MovieDetailPage = () => {
             </DefinationItems>
           </SimpleGrid>
         </Box>
-        <Image
-          src={imgExtractionUrl + movie.backdrop_path}
-          borderRadius={20}
-          maxH={{ base: "100%", md: "100vh" }}
-          maxW={{ base: "100%", md: "100vh" }}
-          marginY={5}
-        />
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Image
+            src={
+              movie.backdrop_path
+                ? imgExtractionUrl + movie.backdrop_path
+                : placeHolderImageUrl
+            }
+            borderRadius={20}
+            maxH={{ base: "100%", md: "100vh" }}
+            maxW={{ base: "100%", md: "100vh" }}
+            marginY={5}
+          />
+        </Box>
       </SimpleGrid>
     </Box>
   );
