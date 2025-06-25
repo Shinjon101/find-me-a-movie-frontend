@@ -1,4 +1,11 @@
-import { Alert, AlertIcon, Box, Spinner } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Spinner,
+} from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useMovies from "../hooks/useMovies";
@@ -15,9 +22,18 @@ const MovieGrid = () => {
 
   if (error)
     return (
-      <Alert status="error">
-        <AlertIcon />
-        {error.message}
+      <Alert
+        status="error"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        borderRadius="md"
+      >
+        <AlertIcon aria-hidden="true" />
+        <Box>
+          <AlertTitle sr-only>Error:</AlertTitle>
+          <AlertDescription>{error.message}</AlertDescription>
+        </Box>
       </Alert>
     );
 
@@ -25,7 +41,7 @@ const MovieGrid = () => {
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   return (
-    <Box>
+    <Box as="section" aria-label="Movie Grid">
       <InfiniteScroll
         dataLength={fetchedMoviesCount}
         hasMore={hasNextPage}

@@ -5,16 +5,7 @@ interface Props {
   children: ReactNode;
 }
 const MovieCardConatiner = ({ children }: Props) => {
-  return (
-    <Box
-      borderRadius={10}
-      overflow="hidden"
-      tabIndex={0}
-      _focusVisible={{ boxShadow: "outline" }}
-    >
-      {children}
-    </Box>
-  );
+  return <Box as="li">{children}</Box>;
 };
 
 export default MovieCardConatiner;

@@ -40,15 +40,17 @@ const GenreList = () => {
   if (error) return null;
 
   return (
-    <Box marginTop="10px">
+    <Box marginTop="10px" as="nav" aria-label="Genre List">
       <Heading fontSize="2xl">Genres</Heading>
-      <List>
+      <List role="list">
         {data?.genres.map((genre) => (
-          <ListItem key={genre.id} margin="3px">
+          <ListItem key={genre.id} margin="3px" role="listitem">
             <Button
               fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
               onClick={() => handleGenreClick(genre)}
               variant="link"
+              aria-pressed={genre.id === selectedGenreId}
+              aria-label={`Filter by ${genre.name} genre`}
             >
               {genre.name}
             </Button>

@@ -6,10 +6,10 @@ interface Props {
 }
 
 const MovieSimpleGrid = ({ children }: Props) => {
-  const isMobile = useBreakpointValue({ base: true, sm: false });
-
   return (
     <SimpleGrid
+      as="ul"
+      listStyleType="none"
       columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
       spacing={8}
       padding={2}

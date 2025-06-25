@@ -48,6 +48,7 @@ export const SortSelector = () => {
       <Menu>
         <MenuButton
           as={Button}
+          aria-label={`Sort movies. Current: ${sortOrder}`}
           whiteSpace="normal"
           wordBreak="break-word"
           fontSize={{ base: "sm", md: "md" }}
@@ -55,9 +56,10 @@ export const SortSelector = () => {
         >
           Order by: {currentSortOrder?.label || "Popularity"}
         </MenuButton>
-        <MenuList>
+        <MenuList aria-label="Sort movies by">
           {sortOrders.map((order) => (
             <MenuItem
+              aria-label={order.value}
               onClick={() => handleSelect(order.value)}
               key={order.value}
               value={order.value}

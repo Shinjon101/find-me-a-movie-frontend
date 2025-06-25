@@ -8,7 +8,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   return (
     <>
-      <HStack padding="5px 10px">
+      <HStack padding="5px 10px" as="header" aria-label="Navigation bar">
         <Image
           _hover={{
             transform: "scale(1.05)",
@@ -19,6 +19,9 @@ const NavBar = () => {
           marginRight="7px"
           cursor={"pointer"}
           onClick={() => navigate("/")}
+          alt="Home logo"
+          aria-label="Go to homepage"
+          role="button"
         ></Image>
         <SearchInput />
         <ColorModeSwitch />

@@ -8,6 +8,7 @@ import GenreSelector from "../Components/GenreSelector";
 const HomePage = () => {
   return (
     <Grid
+      as="main"
       templateAreas={{
         base: `"main"`,
         lg: `"aside main"`,
@@ -18,13 +19,13 @@ const HomePage = () => {
       }}
     >
       <Show above="lg">
-        <GridItem area="aside" paddingX={3}>
+        <GridItem area="aside" paddingX={3} as="aside">
           <GenreList />
         </GridItem>
       </Show>
-      <GridItem area="main">
+      <GridItem area="main" as="section">
         <MovieHeading />
-        <SimpleGrid columns={2}>
+        <SimpleGrid columns={2} as="section">
           <SortSelector />
           <Show below="lg">
             <GenreSelector />

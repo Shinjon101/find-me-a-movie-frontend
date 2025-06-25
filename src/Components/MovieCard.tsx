@@ -29,8 +29,11 @@ const MovieCard = ({ movie }: Props) => {
       as={RouterLink}
       to={`/movies/${movie.id}`}
       _hover={{ textDecoration: "none" }}
+      role="link"
+      aria-label={`View details for ${movie.title}`}
     >
       <Box
+        as="article"
         position="relative"
         width="auto"
         maxW="full"
@@ -50,6 +53,7 @@ const MovieCard = ({ movie }: Props) => {
           alt={movie.title}
           width="100%"
           height="100%"
+          loading="lazy"
           objectFit="cover"
           transition="transform 0.4s ease-in-out"
           transform="scale(1)"
@@ -61,11 +65,13 @@ const MovieCard = ({ movie }: Props) => {
           right="2"
           transition="transform 0.3s ease-in-out"
           _groupHover={{ transform: "scale(1.05)" }}
+          aria-label={`Rating: ${movie.vote_average} out of 10`}
         >
           <RatingScore score={movie.vote_average} />
         </Box>
 
         <Box
+          as="header"
           position="absolute"
           bottom="0"
           left="0"
@@ -84,11 +90,21 @@ const MovieCard = ({ movie }: Props) => {
           }}
           zIndex="1"
         >
-          <Heading fontSize="lg" noOfLines={2}>
+          <Heading
+            fontSize="lg"
+            noOfLines={2}
+            as="h3"
+            id={`movie-title-${movie.id}`}
+          >
             {movie.title}
           </Heading>
 
-          <HStack mt={2}>
+          <HStack
+            as="section"
+            mt={2}
+            aria-labelledby={`movie-title-${movie.id}`}
+            aria-label="Movie information"
+          >
             <Genres movie={movie} />
             <ReleaseDate rDate={movie.release_date} />
           </HStack>

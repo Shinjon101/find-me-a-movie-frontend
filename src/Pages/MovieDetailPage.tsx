@@ -22,7 +22,7 @@ const MovieDetailPage = () => {
   if (error || !movie) throw error;
 
   return (
-    <Box>
+    <Box padding="20px" paddingLeft="50px">
       <SimpleGrid columns={{ base: 1, md: 2 }}>
         <Box>
           <Heading>{movie.title}</Heading>

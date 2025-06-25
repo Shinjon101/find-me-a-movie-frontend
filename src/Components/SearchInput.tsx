@@ -19,6 +19,8 @@ const SearchInput = () => {
 
   return (
     <form
+      role="search"
+      aria-label="Search movies"
       onSubmit={(event) => {
         event.preventDefault();
         if (ref.current) {
@@ -37,7 +39,12 @@ const SearchInput = () => {
     >
       <InputGroup marginTop="10px">
         <InputLeftElement children={<BsSearch />} />
-        <Input ref={ref} borderRadius={20} placeholder="Search movies..." />
+        <Input
+          ref={ref}
+          borderRadius={20}
+          placeholder="Search movies..."
+          aria-label="Search movies"
+        />
       </InputGroup>
     </form>
   );

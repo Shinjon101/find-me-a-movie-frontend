@@ -43,6 +43,7 @@ const GenreSelector = () => {
     <Box padding={2}>
       <Menu>
         <MenuButton
+          aria-label={`Sort movies by genre. Current: ${currentGenre}`}
           as={Button}
           rightIcon={<BsChevronDown />}
           whiteSpace="normal"
@@ -51,9 +52,10 @@ const GenreSelector = () => {
         >
           Genre: {currentGenre?.name || "All genres"}
         </MenuButton>
-        <MenuList>
+        <MenuList aria-label="Sort movies by Genre">
           {genres.map((g) => (
             <MenuItem
+              aria-label={`${g} Genre`}
               key={g.id}
               value={g.name}
               onClick={() => handleGenreChange(g)}

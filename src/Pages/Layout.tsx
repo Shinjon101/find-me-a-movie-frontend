@@ -8,9 +8,8 @@ const Layout = () => {
     <>
       <FilterInitializer />
       <NavBar />
-      <Box padding={5}>
-        <Outlet />
-      </Box>
+
+      <Outlet />
     </>
   );
 };
