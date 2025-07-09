@@ -34,11 +34,8 @@ export const SortSelector = () => {
   );
 
   const handleSelect = (value: string) => {
-    if (value === "popularity") {
-      searchParams.delete("sort");
-    } else {
-      searchParams.set("sort", value);
-    }
+    searchParams.set("sort", value);
+
     setSortOrder(value);
     setSearchParams(searchParams);
   };
