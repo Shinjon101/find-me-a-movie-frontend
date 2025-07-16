@@ -7,6 +7,7 @@ import {
   placeHolderImageUrl,
 } from "../../src/services/ImageExtractionUrl";
 import { Movie } from "../../src/hooks/useMovies";
+import { parseScore } from "../../src/services/parseScore";
 
 describe("Movie Card", () => {
   const renderComponent = (movie?: Movie) => {
@@ -26,7 +27,7 @@ describe("Movie Card", () => {
 
     expect(screen.getByLabelText(/year/i)).toHaveTextContent(year);
     expect(screen.getByTestId("rating-score")).toHaveTextContent(
-      parseFloat(mockMovie.vote_average.toFixed(1)).toString()
+      parseScore(mockMovie.vote_average).toString()
     );
   });
 

@@ -9,6 +9,7 @@ const RatingScore = ({ score }: Props) => {
   let color = score >= 7 ? "green" : score >= 4.5 ? "yellow" : "red";
   return (
     <Badge
+      as="span"
       alignItems="top"
       borderRadius="4px"
       variant="solid"
