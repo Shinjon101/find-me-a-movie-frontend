@@ -1,0 +1,22 @@
+import { ReactNode } from "react";
+import theme from "../src/theme";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import router from "../src/routes";
+import { MemoryRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+interface Props {
+  children: ReactNode;
+}
+const queryClient = new QueryClient();
+export const AllProviders = ({ children }: Props) => {
+  return (
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <MemoryRouter>{children}</MemoryRouter>
+      </QueryClientProvider>
+    </ChakraProvider>
+  );
+};

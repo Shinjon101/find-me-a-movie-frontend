@@ -12,7 +12,10 @@ import Genres from "./Genres";
 import { Link as RouterLink } from "react-router-dom";
 import RatingScore from "./RatingScore";
 
-import { imgExtractionUrl } from "../services/ImageExtractionUrl";
+import {
+  imgExtractionUrl,
+  placeHolderImageUrl,
+} from "../services/ImageExtractionUrl";
 import { Movie } from "../hooks/useMovies";
 import ReleaseDate from "./ReleaseDate";
 
@@ -21,7 +24,6 @@ interface Props {
 }
 
 const MovieCard = ({ movie }: Props) => {
-  const placeHolderImageUrl = "https://placehold.co/342x513?text=no poster";
   const showOverlayByDefault = useBreakpointValue({ base: true, md: false });
 
   return (

@@ -9,6 +9,7 @@ const ReleaseDate = ({ rDate }: Props) => {
   const year = rDate.slice(0, 4);
   return (
     <Badge
+      aria-label="Release Year"
       fontSize="9"
       alignItems="top"
       borderRadius="4px"

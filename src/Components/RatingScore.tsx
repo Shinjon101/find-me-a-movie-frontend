@@ -1,10 +1,11 @@
 import { Badge } from "@chakra-ui/react";
+import { parseScore } from "../services/parseScore";
 
 interface Props {
   score: number;
 }
 const RatingScore = ({ score }: Props) => {
-  score = parseFloat(score.toFixed(1));
+  score = parseScore(score);
   let color = score >= 7 ? "green" : score >= 4.5 ? "yellow" : "red";
   return (
     <Badge
@@ -13,6 +14,7 @@ const RatingScore = ({ score }: Props) => {
       variant="solid"
       paddingX="1"
       colorScheme={color}
+      data-testid="rating-score"
     >
       {score}
     </Badge>
