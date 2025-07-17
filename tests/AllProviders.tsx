@@ -7,15 +7,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface Props {
   children: ReactNode;
+  route?: string;
 }
 const queryClient = new QueryClient();
-export const AllProviders = ({ children }: Props) => {
+export const AllProviders = ({ children, route = "/" }: Props) => {
   return (
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
       </QueryClientProvider>
     </ChakraProvider>
   );

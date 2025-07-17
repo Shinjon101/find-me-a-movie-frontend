@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import useMovieQueryStore from "../services/movieQueryStore";
-import { useEffect } from "react"; // ✅ added
-import { useSearchParams } from "react-router-dom"; // ✅ added
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const SortSelector = () => {
   const sortOrders = [
@@ -56,7 +56,6 @@ export const SortSelector = () => {
         <MenuList aria-label="Sort movies by">
           {sortOrders.map((order) => (
             <MenuItem
-              aria-label={order.value}
               onClick={() => handleSelect(order.value)}
               key={order.value}
               value={order.value}
