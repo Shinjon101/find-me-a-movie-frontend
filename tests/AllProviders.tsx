@@ -9,7 +9,9 @@ interface Props {
   children: ReactNode;
   route?: string;
 }
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false, staleTime: 0 } },
+});
 export const AllProviders = ({ children, route = "/" }: Props) => {
   return (
     <ChakraProvider theme={theme}>

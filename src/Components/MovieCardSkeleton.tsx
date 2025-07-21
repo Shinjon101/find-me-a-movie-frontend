@@ -4,7 +4,7 @@ const MovieCardSkeleton = () => {
   return (
     <Card
       as="article"
-      role="article"
+      role="progressbar"
       aria-label="Loading movie information"
       aria-busy="true"
       borderRadius="lg"

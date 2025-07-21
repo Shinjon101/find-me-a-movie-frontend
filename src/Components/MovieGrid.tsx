@@ -31,7 +31,7 @@ const MovieGrid = () => {
         <AlertIcon aria-hidden="true" />
         <Box>
           <AlertTitle sr-only>Error:</AlertTitle>
-          <AlertDescription>{error.message}</AlertDescription>
+          <AlertDescription>Error:{error.message}</AlertDescription>
         </Box>
       </Alert>
     );
