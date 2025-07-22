@@ -24,16 +24,16 @@ const SearchInput = () => {
       onSubmit={(event) => {
         event.preventDefault();
         if (ref.current) {
-          const searchValue = ref.current.value.trim(); //trim whitespace
+          const searchValue = ref.current.value.trim();
           setSearchText(searchValue);
 
           if (searchValue === "") {
             searchParams.delete("search");
           } else {
-            searchParams.set("search", searchValue); // set if not empty
+            searchParams.set("search", searchValue);
           }
 
-          setSearchParams(searchParams); //apply updated params
+          setSearchParams(searchParams);
         }
       }}
     >
