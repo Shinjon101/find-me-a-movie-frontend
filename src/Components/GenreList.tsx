@@ -26,7 +26,6 @@ const GenreList = () => {
   }, [data]);
 
   const handleGenreClick = (genre: (typeof data.genres)[0]) => {
-    //type of a single genre object from the genres array
     if (genre.id === 1) {
       searchParams.delete("genre");
     } else {
@@ -36,8 +35,8 @@ const GenreList = () => {
     setGenre(genre);
   };
 
-  if (isLoading) return <Spinner />;
-  if (error) return null;
+  if (isLoading) return <Spinner role="progressbar" />;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <Box marginTop="10px" as="nav" aria-label="Genre List">
