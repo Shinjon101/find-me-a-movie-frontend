@@ -7,6 +7,7 @@ const ColorModeSwitch = () => {
     <>
       <HStack as="section" aria-label="Color-scheme switcher">
         <Switch
+          role="switch"
           isChecked={colorMode === "dark"}
           onChange={toggleColorMode}
           colorScheme="green"
