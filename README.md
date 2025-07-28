@@ -1,28 +1,97 @@
-# 🎬 Movie App
+# 🎬 Find Me a Movie
 
-A responsive, front-end only movie exploration application built with React and the TMDB API. The app uses TanStack Query for data fetching and caching,
-Axios for HTTP requests, Zustand for state management, and React Router for seamless navigation.
+React · Vite · TypeScript · Chakra UI
+
+A responsive, accessible movie discovery app built with modern React and TypeScript. Search, filter, sort, and explore movies in a clean interface with infinite scrolling and dark‑mode support.
+
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/3ead6d58-e5c5-4c66-840a-19982d12a65a" />
+
+---
+## About The Project
+
+Find Me a Movie consumes the TMDB API to let users:  
+- Search movies by title 
+- Filter by genre  
+- Sort by popularity, rating, or release date  
+- Browse with infinite scrolling  
+- View detailed info (poster, synopsis, rating)  
+- Toggle light/dark themes  
+- Enjoy a fully responsive layout  
+
+State is managed with Zustand, data fetching uses TanStack Query, and UI components come from Chakra UI. Tests are written with Vitest and React Testing Library.
 
 ---
 
-## 🔧 Tech Stack
+## 📁 Project Structure
+```
+find-me-a-movie/
+├── public
+├── src/
+│ ├── Components/
+│ ├── Pages/
+│ ├── assets/
+│ ├── data/
+│ ├── hooks/
+│ ├── services/
+│ ├── index.css
+│ ├── main.tsx
+│ ├── routes.tsx
+│ ├── theme.ts
+│ └── vite-env.d.ts
+├── tests/
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 
-- **React JS:** 
-- **Chakra UI** for accessible and customizable components
-- **TanStack Query:** Efficient data fetching with caching, pagination, and more.
-- **Axios:** Promise-based HTTP client for the browser.
-- **Zustand:** Lightweight state management.
-- **React Router:** Declarative routing for React.
-- **TMDB API:** Provides movie data.
+```
+---
+
+## Tech Stack
+
+- React + Vite + TypeScript  
+- Chakra UI  
+- Zustand  
+- TanStack Query  
+- Axios  
+- React Router v6  
+- TMDB API  
+- Vitest & React Testing Library  
 
 ---
 
-## ✨ Features
+## 🚀 Getting Started
 
-- 🔍 **Movie Search:** Find movies by title.
-- 🎭 **Filter by genres**
-- ⏫ **Sort** by popularity, rating, or release date
-- 📄 **Detailed View:** Click on a movie to see more information.
-- ♾️ **Infinite Scrolling:** Continuously load movies as you scroll.
-- 🎨 **Responsive Design:** Works seamlessly on desktops, tablets, and mobile devices.
-- ⚡ **Optimized Data Fetching:** Leveraging TanStack Query for minimal loading times and enhanced user experience.
+
+
+### Installation
+
+1.Clone the repo:
+```
+git clone https://github.com/Shinjon101/find-me-a-movie.git
+```
+2.Install packages:
+```
+npm install
+```
+ 3.Run development server:
+```
+npm run dev
+```
+ 
+### Running Tests
+```
+npm run test  
+
+npm run test:ui  
+
+npm run coverage
+```
+
+---
+
+## Author
+
+Built with ❤️ by Shinjon — open to feedback and contributions.
+
+---
+
