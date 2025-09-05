@@ -40,7 +40,7 @@ const MovieDetailPage = () => {
               <RatingScore score={movie.vote_average} />
             </DefinationItem>
             <DefinationItem term="Release Date" key={"releasedate"}>
-              {movie.release_date}
+              {movie.release_date.substring(0, 10)}
             </DefinationItem>
             <DefinationItems term="Runtime" key={"runtime"}>
               {movie.runtime + " minutes"}

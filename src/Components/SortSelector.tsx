@@ -14,9 +14,8 @@ import { useSearchParams } from "react-router-dom";
 export const SortSelector = () => {
   const sortOrders = [
     { value: "popularity", label: "Popularity" },
-    { value: "vote_average.desc", label: "Rating" },
-    { value: "primary_release_date.desc", label: "Release date" },
-    { value: "title.asc", label: "Title" },
+    { value: "vote_average", label: "Rating" },
+    { value: "release_date", label: "Release date" },
   ];
 
   const sortOrder = useMovieQueryStore((s) => s.movieQuery.sortOrder);

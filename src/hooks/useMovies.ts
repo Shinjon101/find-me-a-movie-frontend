@@ -22,30 +22,18 @@ export interface Movie {
 }
 
 const useMovies = (movieQuery: MovieQuery) => {
-  const isSearch = Boolean(movieQuery.searchText);
-
-  const endpoint = isSearch ? "search/movie" : "discover/movie";
-
-  const prevEndpointRef = useRef<string | null>(null);
-
-  if (isSearch && prevEndpointRef.current !== "search/movie") {
-    movieQuery.genre = null;
-    movieQuery.sortOrder = "popularity";
-  }
-
-  prevEndpointRef.current = endpoint;
+  const endpoint = "/movies";
 
   const apiClient = new APIClient(endpoint);
   return useInfiniteQuery<MovieFetchResponse<Movie>, Error>({
     queryKey: ["movies", movieQuery],
     queryFn: ({ pageParam }) => {
-      const params: { [key: string]: any } = isSearch
-        ? { query: movieQuery.searchText, page: pageParam }
-        : {
-            with_genres: movieQuery.genre?.id,
-            sort_by: movieQuery.sortOrder,
-            page: pageParam,
-          };
+      const params: { [key: string]: any } = {
+        search: movieQuery?.searchText,
+        with_genres: movieQuery.genre?.name,
+        sort_by: movieQuery.sortOrder,
+        page: pageParam,
+      };
 
       return apiClient.getMovies(params);
     },
@@ -57,14 +45,6 @@ const useMovies = (movieQuery: MovieQuery) => {
     select: (data) => {
       const processedPages = data.pages.map((page) => {
         let movies = page.results;
-
-        movies = addGenreName(movies);
-        if (isSearch) {
-          movies = sortMovies(movies, movieQuery.sortOrder);
-          if (movieQuery.genre?.name) {
-            movies = sortSearchByGenre(movies, movieQuery.genre.name);
-          }
-        }
         return {
           ...page,
           results: movies,
