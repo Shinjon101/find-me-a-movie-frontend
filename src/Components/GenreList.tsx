@@ -10,9 +10,11 @@ import useGeneres from "../hooks/useGeneres";
 import useMovieQueryStore from "../services/movieQueryStore";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Genre } from "../services/apiClient";
 
 const GenreList = () => {
   const { data, isLoading, error } = useGeneres();
+  console.log(data);
   const setGenre = useMovieQueryStore((s) => s.setGenre);
   const selectedGenreId = useMovieQueryStore((s) => s.movieQuery.genre?.id);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +27,7 @@ const GenreList = () => {
     }
   }, [data]);
 
-  const handleGenreClick = (genre: (typeof data.genres)[0]) => {
+  const handleGenreClick = (genre: Genre) => {
     if (genre.id === 1) {
       searchParams.delete("genre");
     } else {

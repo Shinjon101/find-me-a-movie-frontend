@@ -1,11 +1,6 @@
-import { Genre, MovieFetchResponse } from "../services/apiClient";
-import { MovieQuery } from "../services/movieQueryStore";
-import { addGenreName } from "../services/addGenre";
-import { sortMovies } from "../services/sortSearch";
-import { sortSearchByGenre } from "../services/sortSearchByGenre";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import APIClient from "../services/apiClient";
-import { useRef } from "react";
+import APIClient, { Genre, MovieFetchResponse } from "../services/apiClient";
+import { MovieQuery } from "../services/movieQueryStore";
 
 export interface Movie {
   id: number;
