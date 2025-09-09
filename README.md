@@ -1,4 +1,4 @@
-# 🎬 Find Me a Movie
+# 🎬 Find Me a Movie · V2
 
 React · Vite · TypeScript · Chakra UI
 
@@ -9,7 +9,8 @@ A responsive, accessible movie discovery app built with modern React and TypeScr
 ---
 ## About The Project
 
-Find Me a Movie consumes the TMDB API to let users:  
+### Find Me a Movie · V2 is the second version of my movie discovery client.
+Unlike V1 (which consumed the TMDB API), this version connects to my own Node.js + MongoDB API for full control over data, validation, and security.
 - Search movies by title 
 - Filter by genre  
 - Sort by popularity, rating, or release date  
@@ -67,7 +68,7 @@ find-me-a-movie/
 
 1.Clone the repo:
 ```
-git clone https://github.com/Shinjon101/find-me-a-movie.git
+git clone https://github.com/Shinjon101/find-me-a-movie-frontend.git
 ```
 2.Install packages:
 ```
