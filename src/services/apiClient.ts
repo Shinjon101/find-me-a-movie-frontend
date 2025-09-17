@@ -13,9 +13,12 @@ export interface GenreFetchResponse {
   genres: Genre[];
 }
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:5500/api",
+const baseURL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "http://localhost:5500/api";
 
+const axiosInstance = axios.create({
+  baseURL,
   headers: {
     accept: "application/json",
     "x-api-key": import.meta.env.VITE_API_TOKEN,
