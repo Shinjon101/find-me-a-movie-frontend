@@ -19,7 +19,7 @@ describe("SortSelector", () => {
 
   it("should pick up Initial label from existing sort URL param", () => {
     render(
-      <AllProviders route={`/?sort=vote_average.desc`}>
+      <AllProviders route={`/?sort=vote_average`}>
         <SortSelector />
       </AllProviders>
     );
@@ -31,9 +31,8 @@ describe("SortSelector", () => {
 
   it.each([
     { value: "popularity", label: "Popularity" },
-    { value: "vote_average.desc", label: "Rating" },
-    { value: "primary_release_date.desc", label: "Release date" },
-    { value: "title.asc", label: "Title" },
+    { value: "vote_average", label: "Rating" },
+    { value: "release_date", label: "Release date" },
   ])("should render $label with $value as value", async ({ value, label }) => {
     render(
       <AllProviders route={`/?sort=${value}`}>
