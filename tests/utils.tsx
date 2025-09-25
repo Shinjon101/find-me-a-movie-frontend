@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from "msw";
 import { server } from "./mocks/server";
 
-const url = "https://api.themoviedb.org/3";
+const url = import.meta.env.TEST_DEPLOYED_URL;
 
 export const simulateDelay = (endpoint: string) => {
   const route = url + endpoint;
