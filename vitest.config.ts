@@ -2,6 +2,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
+    env: true,
     environment: "jsdom",
     globals: true,
     setupFiles: "tests/setup.ts",
@@ -9,4 +10,5 @@ export default defineConfig({
       inline: ["@faker-js/faker"],
     },
   },
+  mode: "test",
 });

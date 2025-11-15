@@ -5,7 +5,8 @@ export const handlers = [];
 
 export const mockMovies = (count: number) => {
   const movies = createTestMovies(count);
-  const handler = http.get(`${import.meta.env.VITE_API_URL}/api/movies`, () => {
+
+  const handler = http.get("http://localhost/api/movies*", () => {
     return HttpResponse.json({ results: movies });
   });
 

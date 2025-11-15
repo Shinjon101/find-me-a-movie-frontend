@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from "msw";
 import { server } from "./mocks/server";
 
-const url = import.meta.env.TEST_DEPLOYED_URL;
+const url = "http://localhost";
 
 export const simulateDelay = (endpoint: string) => {
   const route = url + endpoint;
